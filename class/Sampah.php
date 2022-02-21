@@ -1,26 +1,25 @@
 <?php
 
-class Sampah extends Database {
-  protected $kd_barang,
-    $nama_barang,
-    $harga;
+require_once 'Database.php';
+
+class Sampah {
+  private $table = 'sampah',
+    $db;
+
+  public function __construct() {
+    $this->db = new Database();
+  }
 
   public function getAllSampah() {
-    return $this->fetchData("SELECT * FROM sampah ORDER BY kd_barang ASC");
+    return $this->db->fetchAll("SELECT * FROM $this->table ORDER BY kd_barang ASC");
   }
 
   public function getSampahByKd($kd_barang) {
-    $barang = $this->fetchData("SELECT * FROM sampah WHERE kd_barang='$kd_barang'");
-
-    return $data = [
-      'kd_barang' => $barang[0]['kd_barang'],
-      'nama_barang' => $barang[0]['nama_barang'],
-      'harga' => $barang[0]['harga']
-    ];
+    return $this->db->fetchSingle("SELECT * FROM $this->table WHERE kd_barang='$kd_barang'");
   }
 
   public function addSampah($kd_barang, $nama_barang, $harga) {
-    $insertBarang = $this->runQuery("INSERT INTO sampah VALUES ('$kd_barang', '$nama_barang', '$harga')");
+    $insertBarang = $this->db->execute("INSERT INTO $this->table VALUES ('$kd_barang', '$nama_barang', '$harga')");
 
     if (!$insertBarang) {
       echo "<script>alert(Data Sampah Gagal Ditambahkan !')</script>";
@@ -32,7 +31,7 @@ class Sampah extends Database {
   }
 
   public function updateSampah($getKd, $kd_barang, $nama_barang, $harga) {
-    $updateSampah = $this->runQuery("UPDATE sampah SET kd_barang='$kd_barang', nama_barang='$nama_barang', harga='$harga'
+    $updateSampah = $this->db->execute("UPDATE $this->table SET kd_barang='$kd_barang', nama_barang='$nama_barang', harga='$harga'
 		WHERE kd_barang='$getKd'");
 
     if (!$updateSampah) {
@@ -44,7 +43,7 @@ class Sampah extends Database {
   }
 
   public function deleteSampah($kd_barang) {
-    $deleteSampah = $this->runQuery("DELETE FROM sampah WHERE kd_barang='$kd_barang'");
+    $deleteSampah = $this->db->execute("DELETE FROM $this->table WHERE kd_barang='$kd_barang'");
 
     if (!$deleteSampah) {
       echo "<script>alert('Data Sampah Gagal Dihapus!')</script>";

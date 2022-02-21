@@ -1,20 +1,28 @@
 <?php
 
-class Petugas extends Database {
-  protected $id_petugas,
-    $nama_petugas,
+require_once 'Database.php';
+
+class Petugas {
+  private $table = 'petugas',
     $username,
-    $password;
+    $password,
+    $db;
+
+  public function __construct() {
+    $this->db = new Database();
+  }
 
   public function cekLogin($username, $password) {
     session_start();
+    $this->username = $username;
+    $this->password = $password;
 
-    $fetch = $this->fetchData("SELECT * FROM petugas WHERE username='$username' AND password='$password'");
-    $jml = $this->hitungJumlah("SELECT * FROM petugas WHERE username='$username' AND password='$password'");
+    $fetch = $this->db->fetchSingle("SELECT * FROM $this->table WHERE username='$this->username' AND password='$this->password'");
+    $jml = $this->db->hitungJumlah("SELECT * FROM $this->table WHERE username='$this->username' AND password='$this->password'");
 
     if ($jml > 0) {
-      $_SESSION['username'] = $fetch[0]['username'];
-      $_SESSION['password'] = $fetch[0]['password'];
+      $_SESSION['username'] = $fetch['username'];
+      $_SESSION['password'] = $fetch['password'];
       header('location: index.php');
     } else {
       echo "<p align='center'>Login Gagal</p>";
@@ -23,6 +31,6 @@ class Petugas extends Database {
   }
 
   public function getAllPetugas() {
-    return $this->fetchData("SELECT * FROM petugas ORDER BY id_petugas ASC");
+    return $this->db->fetchAll("SELECT * FROM $this->table ORDER BY id_petugas ASC");
   }
 }

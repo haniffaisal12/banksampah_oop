@@ -36,7 +36,7 @@ $jml_tabungan = $jml->hitungJumlah("SELECT * FROM tabungan");
         </span>
       </li>
       <li class="list-group-item bg-danger">
-        <a href="?hal=nasabah" class="nav-link text-white">Nasabah</a>
+        <a href="<?= 'http://' . $_SERVER['SERVER_NAME'] . '/banksampah_oop/content/nasabah/' ?>" class="nav-link text-white">Nasabah</a>
       </li>
     </ul>
   </div>
@@ -50,7 +50,7 @@ $jml_tabungan = $jml->hitungJumlah("SELECT * FROM tabungan");
         </span>
       </li>
       <li class="list-group-item bg-success">
-        <a href="?hal=petugas" class="nav-link text-white">Petugas</a>
+        <a href="<?= 'http://' . $_SERVER['SERVER_NAME'] . '/banksampah_oop/content/petugas/' ?>" class="nav-link text-white">Petugas</a>
       </li>
     </ul>
   </div>
@@ -64,7 +64,7 @@ $jml_tabungan = $jml->hitungJumlah("SELECT * FROM tabungan");
         </span>
       </li>
       <li class="list-group-item bg-secondary">
-        <a href="?hal=sampah" class="nav-link text-white">Sampah</a>
+        <a href="<?= 'http://' . $_SERVER['SERVER_NAME'] . '/banksampah_oop/content/sampah/' ?>" class="nav-link text-white">Sampah</a>
       </li>
     </ul>
   </div>
@@ -78,7 +78,7 @@ $jml_tabungan = $jml->hitungJumlah("SELECT * FROM tabungan");
         </span>
       </li>
       <li class="list-group-item bg-info">
-        <a href="?hal=tabungan" class="nav-link text-white">Tabungan</a>
+        <a href="<?= 'http://' . $_SERVER['SERVER_NAME'] . '/banksampah_oop/content/tabungan/' ?>" class="nav-link text-white">Tabungan</a>
       </li>
     </ul>
   </div>

@@ -1,37 +1,36 @@
 <?php
 class Database {
-  protected $host,
-    $user,
-    $pass,
-    $db,
-    $conn;
+  protected $host = 'localhost',
+    $user = 'root',
+    $pass = '',
+    $db = 'banksampah',
+    $conn,
+    $stmt;
 
-  public function __construct($host = "localhost", $user = "root", $pass = "", $db = "banksampah") {
-    $this->conn = mysqli_connect($host, $user, $pass, $db);
+  public function __construct() {
+    $this->conn = mysqli_connect($this->host, $this->user, $this->pass, $this->db);
     if (mysqli_connect_errno()) {
       echo "Error : " . mysqli_connect_error();
       exit();
     }
-    return $this->conn;
   }
 
-  public function runQuery(string $sql) {
-    $query = mysqli_query($this->conn, $sql);
-    return $query;
+  public function execute(string $sql) {
+    return $this->stmt = mysqli_query($this->conn, $sql);
   }
 
   public function hitungJumlah(string $sqlHitung) {
-    $queryHitung = mysqli_query($this->conn, $sqlHitung);
+    $queryHitung = $this->execute($sqlHitung);
     if (!$queryHitung) {
       echo "Error : " . mysqli_error($this->conn);
       exit();
     }
 
-    return mysqli_num_rows($queryHitung);
+    return $this->stmt = mysqli_num_rows($queryHitung);
   }
 
-  public function fetchData(string $sqlFetch) {
-    $queryFetch = mysqli_query($this->conn, $sqlFetch);
+  public function fetchAll(string $sqlFetch) {
+    $queryFetch = $this->execute($sqlFetch);
     if (!$queryFetch) {
       echo "Error : " . mysqli_error($this->conn);
       exit();
@@ -41,6 +40,16 @@ class Database {
     array_pop($result);
 
     return $result;
+  }
+
+  public function fetchSingle(string $sqlFetch) {
+    $queryFetch = mysqli_query($this->conn, $sqlFetch);
+    if (!$queryFetch) {
+      echo "Error : " . mysqli_error($this->conn);
+      exit();
+    }
+
+    return $this->stmt = mysqli_fetch_assoc($queryFetch);
   }
 }
 
