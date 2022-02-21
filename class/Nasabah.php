@@ -38,9 +38,10 @@ class Nasabah {
     if (!$updateNasabah) {
       echo "<script>alert('Data Nasabah Gagal Diupdate!')</script>";
       echo "<meta http-equiv='refresh' content='1;>";
+    } else {
+      echo "<script>alert('Data Nasabah Berhasil Diupdate!')</script>";
+      echo "<meta content='0; url=index.php' http-equiv='refresh'>";
     }
-    echo "<script>alert('Data Nasabah Berhasil Diupdate!')</script>";
-    echo "<meta content='0; url=index.php' http-equiv='refresh'>";
   }
 
   public function deleteNasabah($id) {
